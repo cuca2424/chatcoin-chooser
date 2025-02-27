@@ -1,23 +1,51 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { toast } from '@/components/ui/use-toast';
-import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract plan from URL query parameters on component mount
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const planFromUrl = queryParams.get('plano');
+    
+    if (planFromUrl) {
+      setSelectedPlan(planFromUrl);
+    }
+  }, [location]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!selectedPlan) {
+      toast({
+        title: "Erro",
+        description: "Por favor, selecione um plano.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     if (password !== confirmPassword) {
       toast({
@@ -68,9 +96,9 @@ const SignUp = () => {
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium">
+                <Label htmlFor="email" className="text-sm font-medium">
                   Email
-                </label>
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -83,9 +111,9 @@ const SignUp = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-medium">
+                <Label htmlFor="password" className="text-sm font-medium">
                   Senha
-                </label>
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -98,9 +126,9 @@ const SignUp = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="block text-sm font-medium">
+                <Label htmlFor="confirmPassword" className="text-sm font-medium">
                   Confirmar Senha
-                </label>
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -110,6 +138,26 @@ const SignUp = () => {
                   required
                   className="w-full"
                 />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="selectedPlan" className="text-sm font-medium">
+                  Plano selecionado
+                </Label>
+                <Select
+                  value={selectedPlan}
+                  onValueChange={setSelectedPlan}
+                  required
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione um plano" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Básico">Básico</SelectItem>
+                    <SelectItem value="Profissional">Profissional</SelectItem>
+                    <SelectItem value="Premium">Premium</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               <Button 

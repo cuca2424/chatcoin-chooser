@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { toast } from '@/components/ui/use-toast';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,12 +20,12 @@ const Login = () => {
     
     try {
       setLoading(true);
-      // Simulating login
+      // Simulating login process
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
         title: "Login realizado com sucesso!",
-        description: "Bem-vindo de volta.",
+        description: "Você será redirecionado para o painel.",
       });
       
       setTimeout(() => {
@@ -52,15 +52,15 @@ const Login = () => {
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold tracking-tight mb-2">Entrar na sua conta</h1>
               <p className="text-muted-foreground">
-                Acesse sua conta para utilizar nosso chatbot
+                Acesse nossa plataforma de chatbot inteligente
               </p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-sm font-medium">
+                <Label htmlFor="email" className="text-sm font-medium">
                   Email
-                </label>
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -73,9 +73,17 @@ const Login = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="password" className="block text-sm font-medium">
-                  Senha
-                </label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-sm font-medium">
+                    Senha
+                  </Label>
+                  <Link 
+                    to="/esqueci-senha" 
+                    className="text-xs font-medium text-primary hover:text-primary/80 transition-colors"
+                  >
+                    Esqueceu a senha?
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   type="password"
@@ -85,15 +93,6 @@ const Login = () => {
                   required
                   className="w-full"
                 />
-              </div>
-              
-              <div className="flex items-center justify-end">
-                <Link 
-                  to="#" 
-                  className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                >
-                  Esqueceu a senha?
-                </Link>
               </div>
               
               <Button 
@@ -112,7 +111,7 @@ const Login = () => {
                   to="/comecar" 
                   className="font-medium text-primary hover:text-primary/80 transition-colors"
                 >
-                  Criar agora
+                  Criar Conta
                 </Link>
               </p>
             </div>

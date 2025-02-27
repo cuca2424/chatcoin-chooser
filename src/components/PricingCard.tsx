@@ -3,6 +3,7 @@ import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 export interface PricingCardProps {
   title: string;
@@ -79,16 +80,21 @@ const PricingCard: React.FC<PricingCardProps> = ({
           </ul>
         </div>
         
-        <Button 
-          className={cn(
-            "w-full transition-all duration-300",
-            isPopular 
-              ? "bg-primary hover:bg-primary/90" 
-              : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-          )}
+        <Link 
+          to={`/comecar?plano=${encodeURIComponent(title)}`}
+          className="w-full"
         >
-          Começar
-        </Button>
+          <Button 
+            className={cn(
+              "w-full transition-all duration-300",
+              isPopular 
+                ? "bg-primary hover:bg-primary/90" 
+                : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+            )}
+          >
+            Começar
+          </Button>
+        </Link>
       </div>
       
       {/* Subtle animated gradient background */}

@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const pricingPlans = [
@@ -178,7 +179,7 @@ const Index = () => {
                       to="/comecar" 
                       className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
                     >
-                      Começar Agora
+                      <Button>Começar Agora</Button>
                     </Link>
                   </div>
                 </div>
