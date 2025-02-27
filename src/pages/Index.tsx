@@ -33,7 +33,7 @@ const Index = () => {
         "Custom integrations",
         "Team collaboration"
       ],
-      isPopular: true
+      isPopular: false
     },
     {
       title: "Premium",
@@ -48,7 +48,7 @@ const Index = () => {
         "API access",
         "White-label solution"
       ],
-      isPopular: false
+      isPopular: true
     }
   ];
 
@@ -61,12 +61,6 @@ const Index = () => {
         <section className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center text-center">
-              <Badge 
-                className="mb-6 bg-secondary text-secondary-foreground animate-fade-in [animation-delay:100ms]"
-              >
-                Intelligent Chatbot Solutions
-              </Badge>
-              
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in [animation-delay:200ms] text-balance max-w-[800px]">
                 Choose the right plan for your chatbot needs
               </h1>
