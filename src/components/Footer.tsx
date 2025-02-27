@@ -12,26 +12,26 @@ const Footer: React.FC = () => {
               <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-semibold text-sm">C</span>
               </div>
-              <span className="font-medium text-lg">ChatCoin</span>
+              <span className="font-medium text-lg">ChatBot</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Intelligent chatbot solutions powered by advanced machine learning.
+              Soluções inteligentes de chatbot para automatizar o atendimento ao cliente.
             </p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:col-span-3">
             {[
               {
-                title: 'Product',
-                links: ['Features', 'Pricing', 'API', 'Integrations', 'Documentation']
+                title: 'Produto',
+                links: ['Recursos', 'Preços', 'API', 'Integrações', 'Documentação']
               },
               {
-                title: 'Company',
-                links: ['About', 'Blog', 'Careers', 'Press', 'Contact']
+                title: 'Empresa',
+                links: ['Sobre', 'Blog', 'Carreiras', 'Imprensa', 'Contato']
               },
               {
-                title: 'Resources',
-                links: ['Community', 'Help Center', 'Partners', 'Status', 'Privacy Policy']
+                title: 'Recursos',
+                links: ['Comunidade', 'Central de Ajuda', 'Parceiros', 'Status', 'Política de Privacidade']
               }
             ].map((column) => (
               <div key={column.title}>
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
         
         <div className="mt-12 pt-8 border-t border-border/30 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} ChatCoin. All rights reserved.
+            © {new Date().getFullYear()} ChatBot. Todos os direitos reservados.
           </p>
           
           <div className="flex space-x-6 mt-4 md:mt-0">

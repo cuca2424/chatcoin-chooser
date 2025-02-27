@@ -9,44 +9,44 @@ import { cn } from '@/lib/utils';
 const Index = () => {
   const pricingPlans = [
     {
-      title: "Basic",
-      price: "$199.99",
-      messageLimit: "1,000",
+      title: "Básico",
+      price: "R$199,99",
+      messageLimit: "1.000",
       features: [
-        "AI-powered responses",
-        "Basic analytics",
-        "Email support",
-        "1 project",
-        "Custom branding"
+        "Respostas com IA",
+        "Análise básica de conversas",
+        "Suporte por e-mail",
+        "1 projeto",
+        "Personalização básica"
       ],
       isPopular: false
     },
     {
-      title: "Pro",
-      price: "$299.00",
-      messageLimit: "3,000",
+      title: "Profissional",
+      price: "R$299,00",
+      messageLimit: "3.000",
       features: [
-        "All Basic features",
-        "Advanced analytics",
-        "Priority support",
-        "3 projects",
-        "Custom integrations",
-        "Team collaboration"
+        "Todos os recursos Básicos",
+        "Análise avançada de conversas",
+        "Suporte prioritário",
+        "3 projetos",
+        "Integrações personalizadas",
+        "Colaboração em equipe"
       ],
       isPopular: false
     },
     {
       title: "Premium",
-      price: "$399.99",
-      messageLimit: "10,000",
+      price: "R$399,99",
+      messageLimit: "10.000",
       features: [
-        "All Pro features",
-        "Enterprise-grade security",
-        "Dedicated support",
-        "Unlimited projects",
-        "Advanced customization",
-        "API access",
-        "White-label solution"
+        "Todos os recursos Profissionais",
+        "Segurança de nível empresarial",
+        "Suporte dedicado",
+        "Projetos ilimitados",
+        "Personalização avançada",
+        "Acesso à API",
+        "Solução white-label"
       ],
       isPopular: true
     }
@@ -62,11 +62,11 @@ const Index = () => {
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center text-center">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in [animation-delay:200ms] text-balance max-w-[800px]">
-                Choose the right plan for your chatbot needs
+                Escolha o plano ideal para seu chatbot de atendimento
               </h1>
               
               <p className="text-lg text-muted-foreground max-w-2xl mb-12 animate-fade-in [animation-delay:300ms] text-balance">
-                Scale your conversational AI with flexible pricing options designed for businesses of all sizes. Pay only for what you need.
+                Automatize seu atendimento ao cliente com nossa solução inteligente de chatbot. Pague apenas pelo que você precisa.
               </p>
               
               {/* Floating element */}
@@ -109,15 +109,15 @@ const Index = () => {
             
             <div className="mt-16 text-center">
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-8">
-                All plans include access to our core platform. Need a custom solution? 
-                Contact our sales team for a tailored enterprise plan.
+                Todos os planos incluem acesso à nossa plataforma principal. Precisa de uma solução personalizada? 
+                Entre em contato com nossa equipe de vendas para um plano empresarial sob medida.
               </p>
               
               <a 
                 href="#" 
                 className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
               >
-                Contact Sales →
+                Falar com Vendas →
               </a>
             </div>
           </div>
@@ -127,26 +127,26 @@ const Index = () => {
         <section className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/30">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-12 text-center">
-              Frequently Asked Questions
+              Perguntas Frequentes
             </h2>
             
             <div className="grid gap-8">
               {[
                 {
-                  question: "How do message limits work?",
-                  answer: "Message limits refer to the total number of messages your chatbot can process each month. If you exceed your limit, you can purchase additional messages or upgrade to a higher plan."
+                  question: "Como funcionam os limites de mensagens?",
+                  answer: "Os limites de mensagens referem-se ao número total de mensagens que seu chatbot pode processar a cada mês. Se você exceder seu limite, pode comprar mensagens adicionais ou fazer upgrade para um plano superior."
                 },
                 {
-                  question: "Can I switch plans at any time?",
-                  answer: "Yes, you can upgrade or downgrade your plan at any time. Changes to your subscription will be applied immediately, with any price differences prorated."
+                  question: "Posso mudar de plano a qualquer momento?",
+                  answer: "Sim, você pode fazer upgrade ou downgrade do seu plano a qualquer momento. As alterações em sua assinatura serão aplicadas imediatamente, com quaisquer diferenças de preço proporcionais."
                 },
                 {
-                  question: "What happens if I exceed my message limit?",
-                  answer: "If you reach your monthly message limit, you'll receive a notification. You can then choose to upgrade your plan or purchase additional messages to continue uninterrupted service."
+                  question: "O que acontece se eu exceder meu limite de mensagens?",
+                  answer: "Se você atingir seu limite mensal de mensagens, receberá uma notificação. Você pode então optar por fazer upgrade do seu plano ou comprar mensagens adicionais para continuar o serviço sem interrupções."
                 },
                 {
-                  question: "Do you offer a free trial?",
-                  answer: "Yes, we offer a 14-day free trial on all plans, allowing you to explore the features and functionality before committing to a subscription."
+                  question: "Vocês oferecem um período de teste gratuito?",
+                  answer: "Sim, oferecemos um período de teste gratuito de 14 dias em todos os planos, permitindo que você explore os recursos e funcionalidades antes de se comprometer com uma assinatura."
                 }
               ].map((faq, index) => (
                 <div 
@@ -172,10 +172,10 @@ const Index = () => {
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
                   <div className="md:max-w-xl">
                     <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
-                      Ready to transform your customer experience?
+                      Pronto para transformar sua experiência de atendimento ao cliente?
                     </h2>
                     <p className="text-muted-foreground mb-6 md:mb-0">
-                      Get started today and see the difference our intelligent chatbot platform can make for your business.
+                      Comece hoje e veja a diferença que nossa plataforma inteligente de chatbot pode fazer para o seu negócio.
                     </p>
                   </div>
                   
@@ -184,13 +184,13 @@ const Index = () => {
                       href="#" 
                       className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
                     >
-                      Get Started
+                      Começar Agora
                     </a>
                     <a 
                       href="#" 
                       className="inline-flex h-10 items-center justify-center rounded-md border border-border px-8 text-sm font-medium shadow-sm transition-colors hover:bg-secondary/50"
                     >
-                      Contact Sales
+                      Falar com Vendas
                     </a>
                   </div>
                 </div>

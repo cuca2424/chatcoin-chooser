@@ -10,11 +10,11 @@ const Header: React.FC = () => {
           <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-semibold text-sm">C</span>
           </div>
-          <span className="font-medium text-lg">ChatCoin</span>
+          <span className="font-medium text-lg">ChatBot</span>
         </div>
         
         <nav className="hidden md:flex items-center space-x-8">
-          {['Home', 'Features', 'Pricing', 'About'].map((item) => (
+          {['Início', 'Recursos', 'Preços', 'Sobre'].map((item) => (
             <a 
               key={item} 
               href="#" 
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
             href="#" 
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
           >
-            Sign In
+            Entrar
           </a>
           <a 
             href="#" 
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
               "hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             )}
           >
-            Get Started
+            Começar
           </a>
         </div>
       </div>

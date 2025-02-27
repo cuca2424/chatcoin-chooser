@@ -41,7 +41,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
           <Badge 
             className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground font-medium"
           >
-            Most Popular
+            Mais Popular
           </Badge>
         )}
         
@@ -49,12 +49,12 @@ const PricingCard: React.FC<PricingCardProps> = ({
           <h3 className="text-xl font-semibold tracking-tight mb-1">{title}</h3>
           <div className="flex items-baseline mb-4">
             <span className="text-3xl md:text-4xl font-bold tracking-tight">{price}</span>
-            <span className="ml-1 text-muted-foreground">/month</span>
+            <span className="ml-1 text-muted-foreground">/mês</span>
           </div>
           
           <div className="mb-6 p-3 rounded-lg bg-secondary/50">
             <p className="text-sm font-medium text-center">
-              {messageLimit} messages per month
+              {messageLimit} mensagens por mês
             </p>
           </div>
           
@@ -87,7 +87,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
               : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
           )}
         >
-          Get Started
+          Começar
         </Button>
       </div>
       
