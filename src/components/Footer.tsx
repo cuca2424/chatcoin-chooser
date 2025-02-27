@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -39,12 +40,12 @@ const Footer: React.FC = () => {
                 <ul className="space-y-2">
                   {column.links.map((link) => (
                     <li key={link}>
-                      <a 
-                        href="#" 
+                      <Link 
+                        to="#" 
                         className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                       >
                         {link}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -60,13 +61,13 @@ const Footer: React.FC = () => {
           
           <div className="flex space-x-6 mt-4 md:mt-0">
             {['Twitter', 'LinkedIn', 'Facebook', 'GitHub'].map((social) => (
-              <a 
+              <Link 
                 key={social} 
-                href="#" 
+                to="#" 
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {social}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

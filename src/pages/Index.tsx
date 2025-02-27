@@ -5,6 +5,7 @@ import PricingCard from '@/components/PricingCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const pricingPlans = [
@@ -110,15 +111,8 @@ const Index = () => {
             <div className="mt-16 text-center">
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto mb-8">
                 Todos os planos incluem acesso à nossa plataforma principal. Precisa de uma solução personalizada? 
-                Entre em contato com nossa equipe de vendas para um plano empresarial sob medida.
+                Entre em contato conosco para mais informações.
               </p>
-              
-              <a 
-                href="#" 
-                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-              >
-                Falar com Vendas →
-              </a>
             </div>
           </div>
         </section>
@@ -180,18 +174,12 @@ const Index = () => {
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                      href="#" 
+                    <Link 
+                      to="/comecar" 
                       className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
                     >
                       Começar Agora
-                    </a>
-                    <a 
-                      href="#" 
-                      className="inline-flex h-10 items-center justify-center rounded-md border border-border px-8 text-sm font-medium shadow-sm transition-colors hover:bg-secondary/50"
-                    >
-                      Falar com Vendas
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
