@@ -35,7 +35,7 @@ const Index = () => {
         "Integrações personalizadas",
         "Colaboração em equipe"
       ],
-      isPopular: false
+      isPopular: true
     },
     {
       title: "Premium",
@@ -50,7 +50,7 @@ const Index = () => {
         "Acesso à API",
         "Solução white-label"
       ],
-      isPopular: true
+      isPopular: false
     }
   ];
 
@@ -60,14 +60,14 @@ const Index = () => {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <section id="início" className="py-20 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col items-center text-center">
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 animate-fade-in [animation-delay:200ms] text-balance max-w-[800px]">
                 Escolha o plano ideal para seu chatbot de atendimento
               </h1>
               
-              <p className="text-lg text-muted-foreground max-w-2xl mb-12 animate-fade-in [animation-delay:300ms] text-balance">
+              <p className="text-lg text-muted-foreground max-w-2xl mb-8 animate-fade-in [animation-delay:300ms] text-balance">
                 Automatize seu atendimento ao cliente com nossa solução inteligente de chatbot. Pague apenas pelo que você precisa.
               </p>
               
@@ -85,7 +85,7 @@ const Index = () => {
         </section>
         
         {/* Pricing Section */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
+        <section id="preços" className="py-12 px-4 sm:px-6 lg:px-8 relative">
           <div className="container mx-auto max-w-7xl relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
               {pricingPlans.map((plan, index) => (
@@ -157,7 +157,7 @@ const Index = () => {
         </section>
         
         {/* CTA Section */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <section id="sobre" className="py-24 px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-5xl">
             <div className="rounded-2xl bg-card p-8 md:p-12 border border-border/40 relative overflow-hidden">
               {/* Background pattern */}

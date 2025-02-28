@@ -4,6 +4,13 @@ import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="w-full py-6 px-4 sm:px-6 lg:px-8 border-b border-border/30 bg-glass">
       <div className="container max-w-7xl mx-auto flex justify-between items-center">
@@ -17,10 +24,10 @@ const Header: React.FC = () => {
         </div>
         
         <nav className="hidden md:flex items-center space-x-8">
-          {['Início', 'Recursos', 'Preços', 'Sobre'].map((item) => (
-            <Link 
+          {['Início', 'Preços', 'Sobre'].map((item) => (
+            <button 
               key={item} 
-              to={item === 'Início' ? '/' : `/${item.toLowerCase()}`}
+              onClick={() => scrollToSection(item.toLowerCase())}
               className={cn(
                 "text-sm font-medium text-muted-foreground relative",
                 "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px]",
@@ -29,7 +36,7 @@ const Header: React.FC = () => {
               )}
             >
               {item}
-            </Link>
+            </button>
           ))}
         </nav>
         
