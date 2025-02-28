@@ -1,12 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Info, BarChart3, Settings } from 'lucide-react';
 
 const Dashboard = () => {
@@ -15,7 +13,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   // Check if user is logged in
-  React.useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       toast({
@@ -28,39 +26,31 @@ const Dashboard = () => {
   }, [navigate, toast]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Meu Painel</h1>
-          <p className="text-muted-foreground">
-            Gerencie seus chatbots e acompanhe seu desempenho
-          </p>
-        </div>
+    <div className="flex flex-col h-screen">
+      {/* Navegação no topo ocupando toda a largura */}
+      <Tabs 
+        value={activeTab} 
+        onValueChange={setActiveTab}
+        className="w-full flex flex-col h-full"
+      >
+        <TabsList className="grid w-full grid-cols-3 rounded-none border-b">
+          <TabsTrigger value="informacoes" className="flex items-center gap-2 py-4">
+            <Info className="h-4 w-4" />
+            <span>Informações</span>
+          </TabsTrigger>
+          <TabsTrigger value="controle" className="flex items-center gap-2 py-4">
+            <Settings className="h-4 w-4" />
+            <span>Controle</span>
+          </TabsTrigger>
+          <TabsTrigger value="painel" className="flex items-center gap-2 py-4">
+            <BarChart3 className="h-4 w-4" />
+            <span>Painel</span>
+          </TabsTrigger>
+        </TabsList>
         
-        <Tabs 
-          value={activeTab} 
-          onValueChange={setActiveTab}
-          className="w-full animate-fade-in"
-        >
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="informacoes" className="flex items-center gap-2">
-              <Info className="h-4 w-4" />
-              <span className="hidden sm:inline">Informações</span>
-            </TabsTrigger>
-            <TabsTrigger value="controle" className="flex items-center gap-2">
-              <Settings className="h-4 w-4" />
-              <span className="hidden sm:inline">Controle</span>
-            </TabsTrigger>
-            <TabsTrigger value="painel" className="flex items-center gap-2">
-              <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">Painel</span>
-            </TabsTrigger>
-          </TabsList>
-          
+        <div className="flex-grow overflow-auto p-4">
           {/* Informações Tab Content */}
-          <TabsContent value="informacoes" className="space-y-6">
+          <TabsContent value="informacoes" className="space-y-6 h-full">
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">Informações da Conta</h2>
               <div className="space-y-4">
@@ -120,7 +110,7 @@ const Dashboard = () => {
           </TabsContent>
           
           {/* Controle Tab Content */}
-          <TabsContent value="controle" className="space-y-6">
+          <TabsContent value="controle" className="space-y-6 h-full">
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">Meus Chatbots</h2>
               
@@ -195,7 +185,7 @@ const Dashboard = () => {
           </TabsContent>
           
           {/* Painel Tab Content */}
-          <TabsContent value="painel" className="space-y-6">
+          <TabsContent value="painel" className="space-y-6 h-full">
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">Estatísticas</h2>
               
@@ -264,10 +254,8 @@ const Dashboard = () => {
               </div>
             </Card>
           </TabsContent>
-        </Tabs>
-      </main>
-      
-      <Footer />
+        </div>
+      </Tabs>
     </div>
   );
 };
