@@ -9,6 +9,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { toast } from '@/components/ui/use-toast';
 
+const API_URL = 'http://localhost:5000/api';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,8 +22,24 @@ const Login = () => {
     
     try {
       setLoading(true);
-      // Simulating login process
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const response = await fetch(`${API_URL}/signin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao fazer login');
+      }
+      
+      // Save token to localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       
       toast({
         title: "Login realizado com sucesso!",
@@ -34,7 +52,7 @@ const Login = () => {
     } catch (error) {
       toast({
         title: "Erro ao fazer login",
-        description: "Email ou senha incorretos. Tente novamente.",
+        description: error instanceof Error ? error.message : "Email ou senha incorretos. Tente novamente.",
         variant: "destructive",
       });
     } finally {

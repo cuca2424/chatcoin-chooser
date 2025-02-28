@@ -16,6 +16,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { toast } from '@/components/ui/use-toast';
 
+const API_URL = 'http://localhost:5000/api';
+
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -58,8 +60,24 @@ const SignUp = () => {
     
     try {
       setLoading(true);
-      // Simulating account creation
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const response = await fetch(`${API_URL}/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email, 
+          password, 
+          selectedPlan 
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao criar conta');
+      }
       
       toast({
         title: "Conta criada com sucesso!",
@@ -72,7 +90,7 @@ const SignUp = () => {
     } catch (error) {
       toast({
         title: "Erro ao criar conta",
-        description: "Ocorreu um erro ao criar sua conta. Tente novamente.",
+        description: error instanceof Error ? error.message : "Ocorreu um erro ao criar sua conta. Tente novamente.",
         variant: "destructive",
       });
     } finally {
