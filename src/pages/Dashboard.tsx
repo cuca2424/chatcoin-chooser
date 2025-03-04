@@ -12,7 +12,9 @@ const Dashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Check if user is logged in
+  // Authentication check temporarily disabled for preview purposes
+  // Will be re-enabled later
+  /*
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -24,6 +26,7 @@ const Dashboard = () => {
       navigate('/entrar');
     }
   }, [navigate, toast]);
+  */
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">

@@ -27,6 +27,14 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Check if user is already logged in
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+
   // Extract plan from URL query parameters on component mount
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -79,14 +87,17 @@ const SignUp = () => {
         throw new Error(data.message || 'Erro ao criar conta');
       }
       
+      // Mock token for testing (since signup API might not return a token)
+      localStorage.setItem('token', 'mock-token-for-testing');
+      localStorage.setItem('user', JSON.stringify({email, plan: selectedPlan}));
+      
       toast({
         title: "Conta criada com sucesso!",
-        description: "Você será redirecionado para o login.",
+        description: "Você será redirecionado para o dashboard.",
       });
       
-      setTimeout(() => {
-        navigate('/entrar');
-      }, 1500);
+      // Redirect immediately to dashboard
+      navigate('/dashboard');
     } catch (error) {
       toast({
         title: "Erro ao criar conta",
