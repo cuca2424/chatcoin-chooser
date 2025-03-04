@@ -1,11 +1,11 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Info, BarChart3, Settings } from 'lucide-react';
+import { Info, BarChart3, Settings, User, Activity, LayoutDashboard } from 'lucide-react';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("informacoes");
@@ -41,21 +41,21 @@ const Dashboard = () => {
             value="informacoes" 
             className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
           >
-            <Info className="h-5 w-5" />
+            <User className="h-5 w-5 text-purple-600" />
             <span>Informações</span>
           </TabsTrigger>
           <TabsTrigger 
             value="controle" 
             className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
           >
-            <Settings className="h-5 w-5" />
+            <Activity className="h-5 w-5 text-purple-600" />
             <span>Controle</span>
           </TabsTrigger>
           <TabsTrigger 
             value="painel" 
             className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
           >
-            <BarChart3 className="h-5 w-5" />
+            <LayoutDashboard className="h-5 w-5 text-purple-600" />
             <span>Painel</span>
           </TabsTrigger>
         </TabsList>
