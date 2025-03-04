@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -28,41 +29,43 @@ const Dashboard = () => {
   */
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      {/* Navegação no topo com melhor contraste visual */}
+    <div className="flex flex-col h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Modern navigation with rounded corners and subtle shadows */}
       <Tabs 
         value={activeTab} 
         onValueChange={setActiveTab}
         className="w-full flex flex-col h-full"
       >
-        <TabsList className="grid w-full grid-cols-3 rounded-none bg-slate-200 p-0 h-14">
-          <TabsTrigger 
-            value="informacoes" 
-            className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
-          >
-            <Info className="h-5 w-5 text-purple-600" />
-            <span>Informações</span>
-          </TabsTrigger>
-          <TabsTrigger 
-            value="controle" 
-            className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
-          >
-            <Settings className="h-5 w-5 text-purple-600" />
-            <span>Controle</span>
-          </TabsTrigger>
-          <TabsTrigger 
-            value="painel" 
-            className="flex items-center gap-2 py-4 h-full data-[state=active]:bg-white data-[state=active]:shadow-none"
-          >
-            <BarChart3 className="h-5 w-5 text-purple-600" />
-            <span>Painel</span>
-          </TabsTrigger>
-        </TabsList>
+        <div className="px-4 pt-4 sm:px-6 lg:px-8">
+          <TabsList className="grid w-full grid-cols-3 rounded-xl bg-white/80 backdrop-blur-sm p-1 h-16 shadow-md border border-gray-100">
+            <TabsTrigger 
+              value="informacoes" 
+              className="flex items-center gap-2 py-4 h-full rounded-lg transition-all duration-200 data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:shadow-sm"
+            >
+              <Info className="h-5 w-5 text-purple-600" />
+              <span className="font-medium">Informações</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="controle" 
+              className="flex items-center gap-2 py-4 h-full rounded-lg transition-all duration-200 data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:shadow-sm"
+            >
+              <Settings className="h-5 w-5 text-purple-600" />
+              <span className="font-medium">Controle</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="painel" 
+              className="flex items-center gap-2 py-4 h-full rounded-lg transition-all duration-200 data-[state=active]:bg-purple-50 data-[state=active]:text-purple-700 data-[state=active]:shadow-sm"
+            >
+              <BarChart3 className="h-5 w-5 text-purple-600" />
+              <span className="font-medium">Painel</span>
+            </TabsTrigger>
+          </TabsList>
+        </div>
         
-        <div className="flex-grow overflow-auto p-6 bg-gray-50">
+        <div className="flex-grow overflow-auto p-4 sm:p-6 lg:p-8">
           {/* Informações Tab Content */}
-          <TabsContent value="informacoes" className="h-full">
-            <Card className="h-full shadow-md">
+          <TabsContent value="informacoes" className="h-full space-y-4 animate-fade-in">
+            <Card className="h-full overflow-hidden border border-gray-100 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
               <CardContent className="p-6">
                 
               </CardContent>
@@ -70,8 +73,8 @@ const Dashboard = () => {
           </TabsContent>
           
           {/* Controle Tab Content */}
-          <TabsContent value="controle" className="h-full">
-            <Card className="h-full shadow-md">
+          <TabsContent value="controle" className="h-full space-y-4 animate-fade-in">
+            <Card className="h-full overflow-hidden border border-gray-100 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
               <CardContent className="p-6">
                 
               </CardContent>
@@ -79,8 +82,8 @@ const Dashboard = () => {
           </TabsContent>
           
           {/* Painel Tab Content */}
-          <TabsContent value="painel" className="h-full">
-            <Card className="h-full shadow-md">
+          <TabsContent value="painel" className="h-full space-y-4 animate-fade-in">
+            <Card className="h-full overflow-hidden border border-gray-100 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
               <CardContent className="p-6">
                 
               </CardContent>
