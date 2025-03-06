@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { Trash2, Truck, ChefHat, Package, Check } from 'lucide-react';
 import { ordersApi, Order, useOrders } from '@/api/ordersApi';
+import KanbanColumn from './KanbanColumn';
 
 interface PanelProps {
   isDarkTheme: boolean;
@@ -14,7 +14,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   const { updateOrderStatus, deleteOrder } = useOrders();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const [draggedOrder, setDraggedOrder] = useState<string | null>(null);
+  const [draggedOrderId, setDraggedOrderId] = useState<string | null>(null);
   
   // Fetch orders on component mount
   useEffect(() => {
@@ -82,7 +82,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   
   // Handle order drag start
   const handleDragStart = (e: React.DragEvent, orderId: string) => {
-    setDraggedOrder(orderId);
+    setDraggedOrderId(orderId);
     e.dataTransfer.setData('orderId', orderId);
   };
   
@@ -91,7 +91,8 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
     e.preventDefault();
     const orderId = e.dataTransfer.getData('orderId');
     
-    if (orderId !== draggedOrder) return;
+    // Make sure the dragged order ID matches what we're tracking
+    if (!orderId || orderId !== draggedOrderId) return;
     
     try {
       // Update order status through API
@@ -105,11 +106,13 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
             : order
         )
       );
+      
+      console.log(`Order ${orderId} moved to ${status}`);
     } catch (error) {
       console.error('Error updating order status:', error);
       // Toast is already shown in the useOrders hook
     } finally {
-      setDraggedOrder(null);
+      setDraggedOrderId(null);
     }
   };
   
@@ -120,7 +123,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   
   // Handle drag end
   const handleDragEnd = () => {
-    setDraggedOrder(null);
+    setDraggedOrderId(null);
   };
   
   // Delete order handler
@@ -157,196 +160,88 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 h-full">
           {/* New Orders */}
-          <div 
-            className="flex flex-col h-full"
-            onDrop={e => handleDrop(e, 'new')} 
+          <KanbanColumn
+            title="Novos Pedidos"
+            icon={Package}
+            bgColor="bg-blue-50"
+            darkBgColor="bg-blue-800/30"
+            headerBgColor="bg-blue-100"
+            darkHeaderBgColor="bg-blue-900"
+            headerTextColor="text-blue-700"
+            darkHeaderTextColor="text-blue-300"
+            status="new"
+            orders={filterOrdersByStatus('new')}
+            emptyMessage="Sem pedidos novos"
+            onDrop={handleDrop}
             onDragOver={handleDragOver}
-          >
-            <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-t-md flex items-center space-x-2">
-              <Package className="h-5 w-5 text-blue-500 dark:text-blue-300" />
-              <h3 className="font-medium text-blue-700 dark:text-blue-300">Novos Pedidos</h3>
-            </div>
-            <div className="bg-blue-50 dark:bg-blue-800/30 flex-1 p-2 rounded-b-md overflow-y-auto space-y-2">
-              {filterOrdersByStatus('new').map(order => (
-                <Card 
-                  key={order.id}
-                  className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-                  draggable
-                  onDragStart={e => handleDragStart(e, order.id)}
-                  onDragEnd={handleDragEnd}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{order.customerName}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {order.items.map((item, idx) => (
-                            <span key={idx} className="block">• {item}</span>
-                          ))}
-                        </p>
-                        <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
-                      </div>
-                      <button 
-                        onClick={() => handleDeleteOrder(order.id)}
-                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-              {filterOrdersByStatus('new').length === 0 && (
-                <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-                  Sem pedidos novos
-                </div>
-              )}
-            </div>
-          </div>
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDelete={handleDeleteOrder}
+            formatCurrency={formatCurrency}
+          />
           
           {/* Preparing Orders */}
-          <div 
-            className="flex flex-col h-full"
-            onDrop={e => handleDrop(e, 'preparing')} 
+          <KanbanColumn
+            title="Pedidos sendo feitos"
+            icon={ChefHat}
+            bgColor="bg-yellow-50"
+            darkBgColor="bg-yellow-800/30"
+            headerBgColor="bg-yellow-100"
+            darkHeaderBgColor="bg-yellow-900"
+            headerTextColor="text-yellow-700"
+            darkHeaderTextColor="text-yellow-300"
+            status="preparing"
+            orders={filterOrdersByStatus('preparing')}
+            emptyMessage="Sem pedidos em preparo"
+            onDrop={handleDrop}
             onDragOver={handleDragOver}
-          >
-            <div className="bg-yellow-100 dark:bg-yellow-900 p-3 rounded-t-md flex items-center space-x-2">
-              <ChefHat className="h-5 w-5 text-yellow-500 dark:text-yellow-300" />
-              <h3 className="font-medium text-yellow-700 dark:text-yellow-300">Pedidos sendo feitos</h3>
-            </div>
-            <div className="bg-yellow-50 dark:bg-yellow-800/30 flex-1 p-2 rounded-b-md overflow-y-auto space-y-2">
-              {filterOrdersByStatus('preparing').map(order => (
-                <Card 
-                  key={order.id}
-                  className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-                  draggable
-                  onDragStart={e => handleDragStart(e, order.id)}
-                  onDragEnd={handleDragEnd}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{order.customerName}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {order.items.map((item, idx) => (
-                            <span key={idx} className="block">• {item}</span>
-                          ))}
-                        </p>
-                        <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
-                      </div>
-                      <button 
-                        onClick={() => handleDeleteOrder(order.id)}
-                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-              {filterOrdersByStatus('preparing').length === 0 && (
-                <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-                  Sem pedidos em preparo
-                </div>
-              )}
-            </div>
-          </div>
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDelete={handleDeleteOrder}
+            formatCurrency={formatCurrency}
+          />
           
           {/* Delivering Orders */}
-          <div 
-            className="flex flex-col h-full"
-            onDrop={e => handleDrop(e, 'delivering')} 
+          <KanbanColumn
+            title="Pedidos sendo entregues"
+            icon={Truck}
+            bgColor="bg-orange-50"
+            darkBgColor="bg-orange-800/30"
+            headerBgColor="bg-orange-100"
+            darkHeaderBgColor="bg-orange-900"
+            headerTextColor="text-orange-700"
+            darkHeaderTextColor="text-orange-300"
+            status="delivering"
+            orders={filterOrdersByStatus('delivering')}
+            emptyMessage="Sem pedidos em entrega"
+            onDrop={handleDrop}
             onDragOver={handleDragOver}
-          >
-            <div className="bg-orange-100 dark:bg-orange-900 p-3 rounded-t-md flex items-center space-x-2">
-              <Truck className="h-5 w-5 text-orange-500 dark:text-orange-300" />
-              <h3 className="font-medium text-orange-700 dark:text-orange-300">Pedidos sendo entregues</h3>
-            </div>
-            <div className="bg-orange-50 dark:bg-orange-800/30 flex-1 p-2 rounded-b-md overflow-y-auto space-y-2">
-              {filterOrdersByStatus('delivering').map(order => (
-                <Card 
-                  key={order.id}
-                  className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-                  draggable
-                  onDragStart={e => handleDragStart(e, order.id)}
-                  onDragEnd={handleDragEnd}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{order.customerName}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {order.items.map((item, idx) => (
-                            <span key={idx} className="block">• {item}</span>
-                          ))}
-                        </p>
-                        <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
-                      </div>
-                      <button 
-                        onClick={() => handleDeleteOrder(order.id)}
-                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-              {filterOrdersByStatus('delivering').length === 0 && (
-                <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-                  Sem pedidos em entrega
-                </div>
-              )}
-            </div>
-          </div>
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDelete={handleDeleteOrder}
+            formatCurrency={formatCurrency}
+          />
           
           {/* Completed Orders */}
-          <div 
-            className="flex flex-col h-full"
-            onDrop={e => handleDrop(e, 'completed')} 
+          <KanbanColumn
+            title="Pedidos finalizados"
+            icon={Check}
+            bgColor="bg-green-50"
+            darkBgColor="bg-green-800/30"
+            headerBgColor="bg-green-100"
+            darkHeaderBgColor="bg-green-900"
+            headerTextColor="text-green-700"
+            darkHeaderTextColor="text-green-300"
+            status="completed"
+            orders={filterOrdersByStatus('completed')}
+            emptyMessage="Sem pedidos finalizados"
+            onDrop={handleDrop}
             onDragOver={handleDragOver}
-          >
-            <div className="bg-green-100 dark:bg-green-900 p-3 rounded-t-md flex items-center space-x-2">
-              <Check className="h-5 w-5 text-green-500 dark:text-green-300" />
-              <h3 className="font-medium text-green-700 dark:text-green-300">Pedidos finalizados</h3>
-            </div>
-            <div className="bg-green-50 dark:bg-green-800/30 flex-1 p-2 rounded-b-md overflow-y-auto space-y-2">
-              {filterOrdersByStatus('completed').map(order => (
-                <Card 
-                  key={order.id}
-                  className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-                  draggable
-                  onDragStart={e => handleDragStart(e, order.id)}
-                  onDragEnd={handleDragEnd}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p className="font-medium">{order.customerName}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {order.items.map((item, idx) => (
-                            <span key={idx} className="block">• {item}</span>
-                          ))}
-                        </p>
-                        <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
-                      </div>
-                      <button 
-                        onClick={() => handleDeleteOrder(order.id)}
-                        className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-              {filterOrdersByStatus('completed').length === 0 && (
-                <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
-                  Sem pedidos finalizados
-                </div>
-              )}
-            </div>
-          </div>
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDelete={handleDeleteOrder}
+            formatCurrency={formatCurrency}
+          />
         </div>
       )}
     </div>

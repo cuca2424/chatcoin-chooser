@@ -36,20 +36,6 @@ const Dashboard = () => {
   }, []);
 
   // Authentication check temporarily disabled for preview purposes
-  // Will be re-enabled later
-  /*
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast({
-        title: "Acesso negado",
-        description: "Você precisa estar logado para acessar esta página.",
-        variant: "destructive",
-      });
-      navigate('/entrar');
-    }
-  }, [navigate, toast]);
-  */
 
   return (
     <div className={`flex h-screen overflow-hidden ${isDarkTheme ? 'dark' : ''}`}>
@@ -71,7 +57,7 @@ const Dashboard = () => {
           activeMenu={activeMenu}
         />
         
-        {/* Page content with no padding to maximize space */}
+        {/* Page content with full height and no scroll */}
         <main className="flex-1 overflow-hidden bg-white dark:bg-gray-900">
           {activeMenu === 'painel' && <Panel isDarkTheme={isDarkTheme} />}
           {activeMenu === 'informacoes' && <Information />}
