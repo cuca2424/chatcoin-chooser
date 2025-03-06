@@ -53,16 +53,16 @@ const Dashboard = () => {
 
   return (
     <div className={`flex h-screen overflow-hidden ${isDarkTheme ? 'dark' : ''}`}>
-      {/* Sidebar */}
+      {/* Sidebar with compact design */}
       <Sidebar
         sidebarOpen={sidebarOpen}
         activeMenu={activeMenu}
         setActiveMenu={setActiveMenu}
       />
       
-      {/* Main content */}
+      {/* Main content area */}
       <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-gray-900">
-        {/* Header */}
+        {/* Header with minimal height */}
         <Header
           sidebarOpen={sidebarOpen}
           toggleSidebar={toggleSidebar}
@@ -71,8 +71,8 @@ const Dashboard = () => {
           activeMenu={activeMenu}
         />
         
-        {/* Page content based on active menu */}
-        <main className="flex-1 overflow-auto p-4 bg-white dark:bg-gray-900">
+        {/* Page content with minimal padding */}
+        <main className="flex-1 overflow-auto p-2 md:p-3 bg-white dark:bg-gray-900">
           {activeMenu === 'painel' && <Panel isDarkTheme={isDarkTheme} />}
           {activeMenu === 'informacoes' && <Information />}
           {activeMenu === 'controle' && <Control />}

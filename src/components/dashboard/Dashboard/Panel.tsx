@@ -9,10 +9,10 @@ interface PanelProps {
 
 const Panel = ({ isDarkTheme }: PanelProps) => {
   return (
-    <>
+    <div className="flex flex-col space-y-4 w-full">
       <StatsCards />
       <DashboardCharts isDarkTheme={isDarkTheme} />
-    </>
+    </div>
   );
 };
 

@@ -33,7 +33,7 @@
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
 
-    --radius: 1rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -113,11 +113,11 @@
   }
 
   .card-shadow {
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   .card-shadow-hover {
-    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   
   .text-balance {
@@ -128,6 +128,10 @@
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .dark .bg-glass {
+    background: rgba(17, 24, 39, 0.7);
   }
   
   .text-gradient {
@@ -148,5 +152,18 @@
 
   .text-shadow-sm {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Compact classes for space optimization */
+  .compact-card {
+    @apply p-2.5 rounded border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm;
+  }
+  
+  .compact-input {
+    @apply h-8 py-1 px-2 text-sm;
+  }
+  
+  .compact-button {
+    @apply h-8 px-3 py-1 text-sm;
   }
 }
