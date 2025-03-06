@@ -14,6 +14,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   const { updateOrderStatus, deleteOrder } = useOrders();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [draggedOrder, setDraggedOrder] = useState<string | null>(null);
   
   // Fetch orders on component mount
   useEffect(() => {
@@ -81,6 +82,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   
   // Handle order drag start
   const handleDragStart = (e: React.DragEvent, orderId: string) => {
+    setDraggedOrder(orderId);
     e.dataTransfer.setData('orderId', orderId);
   };
   
@@ -88,6 +90,8 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   const handleDrop = async (e: React.DragEvent, status: Order['status']) => {
     e.preventDefault();
     const orderId = e.dataTransfer.getData('orderId');
+    
+    if (orderId !== draggedOrder) return;
     
     try {
       // Update order status through API
@@ -104,6 +108,8 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
     } catch (error) {
       console.error('Error updating order status:', error);
       // Toast is already shown in the useOrders hook
+    } finally {
+      setDraggedOrder(null);
     }
   };
   
@@ -112,29 +118,9 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
     e.preventDefault();
   };
   
-  // Get status translation
-  const getStatusTranslation = (status: Order['status']): string => {
-    const translations = {
-      new: 'Novos Pedidos',
-      preparing: 'Pedidos sendo feitos',
-      delivering: 'Pedidos sendo entregues',
-      completed: 'Pedidos finalizados'
-    };
-    return translations[status];
-  };
-  
-  // Get status icon
-  const getStatusIcon = (status: Order['status']) => {
-    switch (status) {
-      case 'new':
-        return <Package className="h-5 w-5 text-blue-500" />;
-      case 'preparing':
-        return <ChefHat className="h-5 w-5 text-yellow-500" />;
-      case 'delivering':
-        return <Truck className="h-5 w-5 text-orange-500" />;
-      case 'completed':
-        return <Check className="h-5 w-5 text-green-500" />;
-    }
+  // Handle drag end
+  const handleDragEnd = () => {
+    setDraggedOrder(null);
   };
   
   // Delete order handler
@@ -163,15 +149,13 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl font-bold mb-4 dark:text-white">Kanban de Pedidos</h2>
-      
+    <div className="w-full h-full">
       {loading ? (
-        <div className="flex justify-center items-center h-64">
+        <div className="flex justify-center items-center h-full">
           <div className="animate-pulse-subtle">Carregando pedidos...</div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 h-[calc(100vh-12rem)] overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 h-full">
           {/* New Orders */}
           <div 
             className="flex flex-col h-full"
@@ -189,6 +173,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
                   className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                   draggable
                   onDragStart={e => handleDragStart(e, order.id)}
+                  onDragEnd={handleDragEnd}
                 >
                   <CardContent className="p-3">
                     <div className="flex justify-between items-start">
@@ -236,6 +221,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
                   className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                   draggable
                   onDragStart={e => handleDragStart(e, order.id)}
+                  onDragEnd={handleDragEnd}
                 >
                   <CardContent className="p-3">
                     <div className="flex justify-between items-start">
@@ -283,6 +269,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
                   className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                   draggable
                   onDragStart={e => handleDragStart(e, order.id)}
+                  onDragEnd={handleDragEnd}
                 >
                   <CardContent className="p-3">
                     <div className="flex justify-between items-start">
@@ -330,6 +317,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
                   className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
                   draggable
                   onDragStart={e => handleDragStart(e, order.id)}
+                  onDragEnd={handleDragEnd}
                 >
                   <CardContent className="p-3">
                     <div className="flex justify-between items-start">
@@ -361,29 +349,6 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
           </div>
         </div>
       )}
-      
-      <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-md shadow-sm">
-        <h3 className="text-lg font-semibold mb-2 dark:text-white">Endpoint para Enviar Pedidos</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-          Para enviar um novo pedido, faça uma requisição POST para:
-        </p>
-        <code className="block bg-gray-100 dark:bg-gray-700 p-2 rounded text-sm overflow-x-auto dark:text-white">
-          POST /api/orders
-        </code>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 mb-1">
-          Exemplo de corpo da requisição:
-        </p>
-        <pre className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-sm overflow-x-auto dark:text-white">
-{`{
-  "customerName": "Nome do Cliente",
-  "items": ["Item 1", "Item 2"],
-  "total": 50.00
-}`}
-        </pre>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-          Todos os novos pedidos serão adicionados automaticamente à coluna "Novos Pedidos".
-        </p>
-      </div>
     </div>
   );
 };

@@ -71,8 +71,8 @@ const Dashboard = () => {
           activeMenu={activeMenu}
         />
         
-        {/* Page content with minimal padding */}
-        <main className="flex-1 overflow-auto p-2 md:p-3 bg-white dark:bg-gray-900">
+        {/* Page content with no padding to maximize space */}
+        <main className="flex-1 overflow-hidden bg-white dark:bg-gray-900">
           {activeMenu === 'painel' && <Panel isDarkTheme={isDarkTheme} />}
           {activeMenu === 'informacoes' && <Information />}
           {activeMenu === 'controle' && <Control />}
