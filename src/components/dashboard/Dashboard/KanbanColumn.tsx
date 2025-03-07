@@ -54,11 +54,11 @@ const KanbanColumn = ({
       onDragOver={onDragOver}
       data-column-status={status}
     >
-      <div className={`${headerBgColor} dark:${darkHeaderBgColor} p-3 rounded-t-md flex items-center space-x-2`}>
+      <div className={`${headerBgColor} dark:${darkHeaderBgColor} p-3 flex items-center space-x-2`}>
         <Icon className={`h-5 w-5 ${headerTextColor} dark:${darkHeaderTextColor}`} />
         <h3 className={`font-medium ${headerTextColor} dark:${darkHeaderTextColor}`}>{title}</h3>
       </div>
-      <div className={`${bgColor} dark:${darkBgColor} flex-1 p-2 rounded-b-md overflow-y-auto space-y-2`}>
+      <div className={`${bgColor} dark:${darkBgColor} flex-1 p-2 overflow-y-auto space-y-2`}>
         {orders.length > 0 ? (
           orders.map(order => (
             <OrderCard 

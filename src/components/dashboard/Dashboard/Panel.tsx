@@ -27,7 +27,7 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
           <div className="animate-pulse-subtle">Carregando pedidos...</div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 h-full">
           {columnConfigs.map((config) => (
             <KanbanColumn
               key={config.status}
