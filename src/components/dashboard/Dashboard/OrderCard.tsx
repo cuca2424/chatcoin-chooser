@@ -19,6 +19,7 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
       draggable
       onDragStart={(e) => onDragStart(e, order.id)}
       onDragEnd={onDragEnd}
+      data-order-id={order.id} // Add a data attribute to identify the specific order
     >
       <CardContent className="p-3">
         <div className="flex justify-between items-start">
@@ -32,7 +33,10 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
             <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
           </div>
           <button 
-            onClick={() => onDelete(order.id)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent drag start when deleting
+              onDelete(order.id);
+            }}
             className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
           >
             <Trash2 className="h-4 w-4" />

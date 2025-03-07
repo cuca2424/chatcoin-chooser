@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useToast } from "@/components/ui/use-toast";
-import { Trash2, Truck, ChefHat, Package, Check } from 'lucide-react';
+import { Truck, ChefHat, Package, Check } from 'lucide-react';
 import { ordersApi, Order, useOrders } from '@/api/ordersApi';
 import KanbanColumn from './KanbanColumn';
 
@@ -84,11 +84,15 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   
   // Handle order drag start
   const handleDragStart = (e: React.DragEvent, orderId: string) => {
-    // Set data transfer to include the order ID
+    // Set data transfer to include ONLY the order ID
     e.dataTransfer.setData('orderId', orderId);
     setDraggedOrderId(orderId);
     
-    // For debugging purposes
+    // Ensure proper visual feedback
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.classList.add('opacity-50');
+    }
+    
     console.log(`Started dragging order: ${orderId}`);
   };
   
@@ -146,8 +150,13 @@ const Panel = ({ isDarkTheme }: PanelProps) => {
   };
   
   // Handle drag end
-  const handleDragEnd = () => {
+  const handleDragEnd = (e: React.DragEvent) => {
     setDraggedOrderId(null);
+    
+    // Remove visual feedback
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.classList.remove('opacity-50');
+    }
   };
   
   // Delete order handler
