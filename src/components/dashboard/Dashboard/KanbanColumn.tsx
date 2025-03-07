@@ -54,17 +54,18 @@ const KanbanColumn = ({
         <h3 className={`font-medium ${headerTextColor} dark:${darkHeaderTextColor}`}>{title}</h3>
       </div>
       <div className={`${bgColor} dark:${darkBgColor} flex-1 p-2 rounded-b-md overflow-y-auto space-y-2`}>
-        {orders.map(order => (
-          <OrderCard 
-            key={order.id}
-            order={order}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            onDelete={onDelete}
-            formatCurrency={formatCurrency}
-          />
-        ))}
-        {orders.length === 0 && (
+        {orders.length > 0 ? (
+          orders.map(order => (
+            <OrderCard 
+              key={order.id}
+              order={order}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              onDelete={onDelete}
+              formatCurrency={formatCurrency}
+            />
+          ))
+        ) : (
           <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
             {emptyMessage}
           </div>

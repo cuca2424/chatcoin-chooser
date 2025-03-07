@@ -15,7 +15,7 @@ interface OrderCardProps {
 const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: OrderCardProps) => {
   return (
     <Card 
-      className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
+      className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mb-2"
       draggable
       onDragStart={(e) => onDragStart(e, order.id)}
       onDragEnd={onDragEnd}
@@ -26,7 +26,7 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
             <p className="font-medium">{order.customerName}</p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               {order.items.map((item, idx) => (
-                <span key={idx} className="block">• {item}</span>
+                <span key={`${order.id}-item-${idx}`} className="block">• {item}</span>
               ))}
             </p>
             <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
