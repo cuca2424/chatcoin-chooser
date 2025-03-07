@@ -7,7 +7,7 @@ import { Order } from '@/api/ordersApi';
 interface OrderCardProps {
   order: Order;
   onDragStart: (e: React.DragEvent, orderId: string) => void;
-  onDragEnd: () => void;
+  onDragEnd: (e: React.DragEvent) => void;
   onDelete: (id: string) => void;
   formatCurrency: (value: number) => string;
 }

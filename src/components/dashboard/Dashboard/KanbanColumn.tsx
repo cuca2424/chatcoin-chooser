@@ -19,7 +19,7 @@ interface KanbanColumnProps {
   onDrop: (e: React.DragEvent, status: Order['status']) => void;
   onDragOver: (e: React.DragEvent) => void;
   onDragStart: (e: React.DragEvent, orderId: string) => void;
-  onDragEnd: () => void;
+  onDragEnd: (e: React.DragEvent) => void;
   onDelete: (id: string) => void;
   formatCurrency: (value: number) => string;
 }
