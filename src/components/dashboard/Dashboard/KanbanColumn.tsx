@@ -44,7 +44,6 @@ const KanbanColumn = ({
   formatCurrency
 }: KanbanColumnProps) => {
   const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
     onDrop(e, status);
   };
 
@@ -53,7 +52,7 @@ const KanbanColumn = ({
       className="flex flex-col h-full"
       onDrop={handleDrop} 
       onDragOver={onDragOver}
-      data-column-status={status} // Add a data attribute to identify the column
+      data-column-status={status}
     >
       <div className={`${headerBgColor} dark:${darkHeaderBgColor} p-3 rounded-t-md flex items-center space-x-2`}>
         <Icon className={`h-5 w-5 ${headerTextColor} dark:${darkHeaderTextColor}`} />

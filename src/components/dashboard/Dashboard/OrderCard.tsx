@@ -13,13 +13,22 @@ interface OrderCardProps {
 }
 
 const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: OrderCardProps) => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent drag start when deleting
+    onDelete(order.id);
+  };
+
+  const handleDragStart = (e: React.DragEvent) => {
+    onDragStart(e, order.id);
+  };
+
   return (
     <Card 
       className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mb-2"
       draggable
-      onDragStart={(e) => onDragStart(e, order.id)}
+      onDragStart={handleDragStart}
       onDragEnd={onDragEnd}
-      data-order-id={order.id} // Add a data attribute to identify the specific order
+      data-order-id={order.id}
     >
       <CardContent className="p-3">
         <div className="flex justify-between items-start">
@@ -33,10 +42,7 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
             <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
           </div>
           <button 
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent drag start when deleting
-              onDelete(order.id);
-            }}
+            onClick={handleDelete}
             className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
           >
             <Trash2 className="h-4 w-4" />

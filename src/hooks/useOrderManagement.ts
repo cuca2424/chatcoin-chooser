@@ -43,7 +43,7 @@ export const useOrderManagement = () => {
   
   // Handle order drag start
   const handleDragStart = (e: React.DragEvent, orderId: string) => {
-    // Set data transfer to include ONLY the order ID
+    // Set the order ID in the dataTransfer
     e.dataTransfer.setData('orderId', orderId);
     setDraggedOrderId(orderId);
     
