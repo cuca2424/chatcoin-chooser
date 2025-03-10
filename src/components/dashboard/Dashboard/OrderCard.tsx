@@ -19,6 +19,8 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
   };
 
   const handleDragStart = (e: React.DragEvent) => {
+    // Make sure we're setting the data correctly for this specific order
+    e.dataTransfer.setData('orderId', order.id);
     onDragStart(e, order.id);
   };
 
