@@ -11,6 +11,11 @@ export interface Order {
   createdAt: string;
 }
 
+// Function to generate a unique ID
+const generateUniqueId = () => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+};
+
 // Example API to create and manage orders
 export const ordersApi = {
   // Fetch all orders
@@ -25,7 +30,7 @@ export const ordersApi = {
   createOrder: async (orderData: Omit<Order, 'id' | 'status' | 'createdAt'>): Promise<Order> => {
     // Create a new order object
     const newOrder: Order = {
-      id: Date.now().toString(),
+      id: generateUniqueId(), // Use the function to generate a guaranteed unique ID
       ...orderData,
       status: 'new', // All new orders start with 'new' status
       createdAt: new Date().toISOString()

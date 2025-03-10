@@ -43,11 +43,11 @@ export const useOrderManagement = () => {
   
   // Handle order drag start
   const handleDragStart = (e: React.DragEvent, orderId: string) => {
-    // Importante: Definir os dados de transferência com o ID do pedido
+    // Important: Set transfer data with the order ID
     e.dataTransfer.setData('orderId', orderId);
     setDraggedOrderId(orderId);
     
-    // Garantir feedback visual adequado
+    // Ensure adequate visual feedback
     if (e.currentTarget instanceof HTMLElement) {
       e.currentTarget.classList.add('opacity-50');
     }
@@ -59,7 +59,7 @@ export const useOrderManagement = () => {
   const handleDrop = async (e: React.DragEvent, status: Order['status']) => {
     e.preventDefault();
     
-    // Obter o ID do pedido dos dados de transferência
+    // Get the order ID from transfer data
     const orderId = e.dataTransfer.getData('orderId');
     
     if (!orderId) {
@@ -67,7 +67,9 @@ export const useOrderManagement = () => {
       return;
     }
     
-    // Buscar o pedido arrastado pelo ID
+    console.log(`Dropping order with ID: ${orderId} to status: ${status}`);
+    
+    // Find the dragged order by ID
     const draggedOrder = orders.find(order => order.id === orderId);
     
     if (!draggedOrder) {
@@ -75,17 +77,17 @@ export const useOrderManagement = () => {
       return;
     }
     
-    // Verificar se o status já corresponde
+    // Check if status already matches
     if (draggedOrder.status === status) {
       console.log(`Order ${orderId} is already in ${status} status`);
       return;
     }
     
     try {
-      // Atualizar o status do pedido através da API
+      // Update order status through API
       await updateOrderStatus(orderId, status);
       
-      // Atualizar o estado local
+      // Update local state
       setOrders(prev => 
         prev.map(order => 
           order.id === orderId
@@ -97,13 +99,13 @@ export const useOrderManagement = () => {
       console.log(`Order ${orderId} moved to ${status}`);
     } catch (error) {
       console.error('Error updating order status:', error);
-      // Toast já é mostrado no hook useOrders
+      // Toast is already shown in useOrders hook
     } finally {
       setDraggedOrderId(null);
     }
   };
   
-  // Permitir soltar
+  // Allow dropping
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
   };
@@ -112,7 +114,7 @@ export const useOrderManagement = () => {
   const handleDragEnd = (e: React.DragEvent) => {
     setDraggedOrderId(null);
     
-    // Remover feedback visual
+    // Remove visual feedback
     if (e.currentTarget instanceof HTMLElement) {
       e.currentTarget.classList.remove('opacity-50');
     }
@@ -120,13 +122,15 @@ export const useOrderManagement = () => {
   
   // Delete order handler
   const handleDeleteOrder = async (id: string) => {
+    console.log(`Deleting order with ID: ${id}`);
+    
     try {
       await deleteOrder(id);
-      // Atualizar o estado local após exclusão bem-sucedida
+      // Update local state after successful deletion
       setOrders(prev => prev.filter(order => order.id !== id));
     } catch (error) {
       console.error('Error deleting order:', error);
-      // Toast já é mostrado no hook useOrders
+      // Toast is already shown in useOrders hook
     }
   };
   
