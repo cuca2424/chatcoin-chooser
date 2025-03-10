@@ -29,28 +29,28 @@ const OrderCard = ({ order, onDragStart, onDragEnd, onDelete, formatCurrency }: 
 
   return (
     <Card 
-      className="cursor-move bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow mb-2"
+      className="cursor-move bg-white dark:bg-gray-800 shadow-none hover:shadow-sm transition-all mb-2 border-[0.5px]"
       draggable
       onDragStart={handleDragStart}
       onDragEnd={onDragEnd}
       data-order-id={order.id}
     >
-      <CardContent className="p-3">
+      <CardContent className="p-2.5">
         <div className="flex justify-between items-start">
           <div>
-            <p className="font-medium">{order.customerName}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="font-medium text-sm">{order.customerName}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {order.items.map((item, idx) => (
                 <span key={`${order.id}-item-${idx}`} className="block">• {item}</span>
               ))}
             </p>
-            <p className="mt-2 font-semibold">{formatCurrency(order.total)}</p>
+            <p className="mt-1.5 font-semibold text-sm">{formatCurrency(order.total)}</p>
           </div>
           <button 
             onClick={handleDelete}
-            className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+            className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-3.5 w-3.5" />
           </button>
         </div>
       </CardContent>

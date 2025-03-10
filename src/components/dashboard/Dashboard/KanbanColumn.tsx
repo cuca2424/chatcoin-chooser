@@ -49,16 +49,16 @@ const KanbanColumn = ({
 
   return (
     <div 
-      className="flex flex-col h-full"
+      className="flex flex-col h-full border-r border-gray-100 dark:border-gray-700 last:border-r-0"
       onDrop={handleDrop} 
       onDragOver={onDragOver}
       data-column-status={status}
     >
-      <div className={`${headerBgColor} dark:${darkHeaderBgColor} p-3 flex items-center space-x-2`}>
-        <Icon className={`h-5 w-5 ${headerTextColor} dark:${darkHeaderTextColor}`} />
-        <h3 className={`font-medium ${headerTextColor} dark:${darkHeaderTextColor}`}>{title}</h3>
+      <div className={`${headerBgColor} dark:${darkHeaderBgColor} p-2 flex items-center gap-1.5 border-b border-gray-100 dark:border-gray-700`}>
+        <Icon className={`h-4 w-4 ${headerTextColor} dark:${darkHeaderTextColor}`} />
+        <h3 className={`text-sm font-medium ${headerTextColor} dark:${darkHeaderTextColor}`}>{title}</h3>
       </div>
-      <div className={`${bgColor} dark:${darkBgColor} flex-1 p-2 overflow-y-auto space-y-2`}>
+      <div className={`${bgColor} dark:${darkBgColor} flex-1 p-1.5 overflow-y-auto space-y-1.5`}>
         {orders.length > 0 ? (
           orders.map(order => (
             <OrderCard 
@@ -71,7 +71,7 @@ const KanbanColumn = ({
             />
           ))
         ) : (
-          <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="text-center py-3 text-xs text-gray-400 dark:text-gray-500">
             {emptyMessage}
           </div>
         )}

@@ -35,8 +35,6 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Authentication check temporarily disabled for preview purposes
-
   return (
     <div className={`flex h-screen overflow-hidden ${isDarkTheme ? 'dark' : ''}`}>
       {/* Sidebar with compact design */}
