@@ -164,13 +164,13 @@ const Information = () => {
             </div>
           </div>
           
-          <div className="pt-6 pb-10">
+          <div className="flex justify-center pt-6 pb-10">
             <Button 
               type="submit" 
-              className="w-full sm:w-auto font-medium text-base tracking-wide bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
+              className="w-48 font-medium text-base tracking-wide bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
             >
               <Save className="h-4 w-4 mr-2" />
-              Salvar Informações
+              Enviar
             </Button>
           </div>
         </form>
