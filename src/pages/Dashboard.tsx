@@ -55,9 +55,9 @@ const Dashboard = () => {
           activeMenu={activeMenu}
         />
         
-        {/* Page content - no scroll for any component */}
-        <main className="flex-1 bg-white dark:bg-gray-900 overflow-auto">
-          <div className="h-full">
+        {/* Page content - no scroll */}
+        <main className="flex-1 bg-white dark:bg-gray-900 overflow-hidden">
+          <div className="h-full overflow-hidden">
             {activeMenu === 'painel' && <Panel isDarkTheme={isDarkTheme} />}
             {activeMenu === 'informacoes' && <Information />}
             {activeMenu === 'controle' && <Control />}
