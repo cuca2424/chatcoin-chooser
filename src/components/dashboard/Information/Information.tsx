@@ -62,8 +62,8 @@ const Information = () => {
     
     console.log('Form data submitted:', {
       businessName,
-      operatingHours: formattedSchedules,
       address,
+      operatingHours: formattedSchedules,
     });
     
     toast({
@@ -73,98 +73,98 @@ const Information = () => {
   };
 
   return (
-    <div className="w-full h-full py-8 px-6 bg-background overflow-y-auto">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-semibold tracking-tight mb-2 text-gray-900 dark:text-gray-50">Informações do Negócio</h1>
-        <p className="text-base text-gray-600 dark:text-gray-400 mb-8">
-          Personalize seu sistema com as informações essenciais do seu negócio
-        </p>
+    <div className="w-full h-full p-8 bg-background">
+      <div className="max-w-4xl mx-auto space-y-10">
+        <h1 className="text-2xl font-semibold tracking-tight mb-6 text-gray-900 dark:text-gray-50">
+          Informações do Negócio
+        </h1>
         
         <form onSubmit={handleSubmit} className="space-y-10">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <Label htmlFor="businessName" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
-                <Building2 className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                Nome do Negócio
-              </Label>
-              <Input
-                id="businessName"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
-                placeholder="Informe o nome do seu negócio"
-                className="border-gray-200 dark:border-gray-700 text-base"
-              />
-            </div>
+          {/* Business Name */}
+          <div className="space-y-4">
+            <Label htmlFor="businessName" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
+              <Building2 className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              Nome do Negócio
+            </Label>
+            <Input
+              id="businessName"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              placeholder="Informe o nome do seu negócio"
+              className="border-gray-200 dark:border-gray-700"
+            />
+          </div>
 
+          {/* Address */}
+          <div className="space-y-4">
+            <Label htmlFor="address" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
+              <MapPin className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              Endereço
+            </Label>
+            <Input
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="Rua, número, bairro, cidade - Estado"
+              className="border-gray-200 dark:border-gray-700"
+            />
+          </div>
+
+          {/* Operating Hours */}
+          <div className="space-y-6">
+            <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
+              <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+              Horário de Funcionamento
+            </Label>
+            
             <div className="space-y-4">
-              <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
-                <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                Horário de Funcionamento
-              </Label>
-              
-              <div className="space-y-4 pl-6">
-                {schedules.map((schedule, index) => (
-                  <div key={schedule.day} className="grid grid-cols-12 gap-4 items-center">
-                    <div className="col-span-4 md:col-span-3">
-                      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{schedule.day}</span>
-                    </div>
-                    
-                    <div className="col-span-4 md:col-span-3">
-                      <Select
-                        value={schedule.isOpen ? "open" : "closed"}
-                        onValueChange={(value) => handleScheduleChange(index, "isOpen", value === "open")}
-                      >
-                        <SelectTrigger className="h-9 text-sm">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="open">Aberto</SelectItem>
-                          <SelectItem value="closed">Fechado</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    {schedule.isOpen && (
-                      <>
-                        <div className="col-span-2 md:col-span-3">
-                          <Input
-                            type="time"
-                            value={schedule.open}
-                            onChange={(e) => handleScheduleChange(index, "open", e.target.value)}
-                            className="h-9 text-sm"
-                          />
-                        </div>
-                        <div className="col-span-2 md:col-span-3">
-                          <Input
-                            type="time"
-                            value={schedule.close}
-                            onChange={(e) => handleScheduleChange(index, "close", e.target.value)}
-                            className="h-9 text-sm"
-                          />
-                        </div>
-                      </>
-                    )}
+              {schedules.map((schedule, index) => (
+                <div key={schedule.day} className="grid grid-cols-12 gap-4 items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
+                  <div className="col-span-3">
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{schedule.day}</span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <Label htmlFor="address" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
-                <MapPin className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                Endereço
-              </Label>
-              <Input
-                id="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Rua, número, bairro, cidade - Estado"
-                className="border-gray-200 dark:border-gray-700 text-base"
-              />
+                  
+                  <div className="col-span-3">
+                    <Select
+                      value={schedule.isOpen ? "open" : "closed"}
+                      onValueChange={(value) => handleScheduleChange(index, "isOpen", value === "open")}
+                    >
+                      <SelectTrigger className="h-9">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="open">Aberto</SelectItem>
+                        <SelectItem value="closed">Fechado</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {schedule.isOpen && (
+                    <>
+                      <div className="col-span-3">
+                        <Input
+                          type="time"
+                          value={schedule.open}
+                          onChange={(e) => handleScheduleChange(index, "open", e.target.value)}
+                          className="h-9"
+                        />
+                      </div>
+                      <div className="col-span-3">
+                        <Input
+                          type="time"
+                          value={schedule.close}
+                          onChange={(e) => handleScheduleChange(index, "close", e.target.value)}
+                          className="h-9"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
           
-          <div className="flex justify-center pt-6 pb-10">
+          <div className="flex justify-center pt-6">
             <Button 
               type="submit" 
               className="w-48 font-medium text-base tracking-wide bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
