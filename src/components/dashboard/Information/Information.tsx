@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Building2, Clock, MapPin, Save } from "lucide-react";
+import { Building2, MapPin, Clock, Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import {
   Select,
@@ -73,15 +73,15 @@ const Information = () => {
   };
 
   return (
-    <div className="w-full h-full p-8 bg-background">
-      <div className="max-w-4xl mx-auto space-y-10">
-        <h1 className="text-2xl font-semibold tracking-tight mb-6 text-gray-900 dark:text-gray-50">
+    <div className="w-full h-full bg-background flex flex-col items-center">
+      <div className="w-full max-w-4xl px-4 py-8 sm:px-6 md:px-8">
+        <h1 className="text-2xl font-semibold tracking-tight mb-8 text-gray-900 dark:text-gray-50">
           Informações do Negócio
         </h1>
         
-        <form onSubmit={handleSubmit} className="space-y-10">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Business Name */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label htmlFor="businessName" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
               <Building2 className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               Nome do Negócio
@@ -96,7 +96,7 @@ const Information = () => {
           </div>
 
           {/* Address */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label htmlFor="address" className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
               <MapPin className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               Endereço
@@ -111,25 +111,22 @@ const Information = () => {
           </div>
 
           {/* Operating Hours */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Label className="flex items-center gap-2 text-gray-700 dark:text-gray-300 font-medium text-base">
               <Clock className="h-4 w-4 text-gray-500 dark:text-gray-400" />
               Horário de Funcionamento
             </Label>
             
-            <div className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
               {schedules.map((schedule, index) => (
-                <div key={schedule.day} className="grid grid-cols-12 gap-4 items-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">
-                  <div className="col-span-3">
+                <div key={schedule.day} className="flex flex-col bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{schedule.day}</span>
-                  </div>
-                  
-                  <div className="col-span-3">
                     <Select
                       value={schedule.isOpen ? "open" : "closed"}
                       onValueChange={(value) => handleScheduleChange(index, "isOpen", value === "open")}
                     >
-                      <SelectTrigger className="h-9">
+                      <SelectTrigger className="h-8 w-28">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -140,31 +137,28 @@ const Information = () => {
                   </div>
                   
                   {schedule.isOpen && (
-                    <>
-                      <div className="col-span-3">
-                        <Input
-                          type="time"
-                          value={schedule.open}
-                          onChange={(e) => handleScheduleChange(index, "open", e.target.value)}
-                          className="h-9"
-                        />
-                      </div>
-                      <div className="col-span-3">
-                        <Input
-                          type="time"
-                          value={schedule.close}
-                          onChange={(e) => handleScheduleChange(index, "close", e.target.value)}
-                          className="h-9"
-                        />
-                      </div>
-                    </>
+                    <div className="flex gap-2 items-center">
+                      <Input
+                        type="time"
+                        value={schedule.open}
+                        onChange={(e) => handleScheduleChange(index, "open", e.target.value)}
+                        className="h-8"
+                      />
+                      <span className="text-gray-500">até</span>
+                      <Input
+                        type="time"
+                        value={schedule.close}
+                        onChange={(e) => handleScheduleChange(index, "close", e.target.value)}
+                        className="h-8"
+                      />
+                    </div>
                   )}
                 </div>
               ))}
             </div>
           </div>
           
-          <div className="flex justify-center pt-6">
+          <div className="flex justify-center pt-4">
             <Button 
               type="submit" 
               className="w-48 font-medium text-base tracking-wide bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600"
