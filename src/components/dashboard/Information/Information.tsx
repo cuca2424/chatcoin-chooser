@@ -73,7 +73,7 @@ const Information = () => {
   };
 
   return (
-    <div className="w-full h-full bg-background flex flex-col items-center overflow-hidden">
+    <div className="w-full h-full bg-background flex flex-col items-center overflow-auto">
       <div className="w-full max-w-4xl px-4 py-4 sm:px-6 md:px-8">
         <h1 className="text-2xl font-semibold tracking-tight mb-6 text-gray-900 dark:text-gray-50">
           Informações do Negócio
